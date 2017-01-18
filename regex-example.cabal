@@ -1,0 +1,38 @@
+name:                regex-example
+version:             0.1.0.0
+build-type:          Simple
+cabal-version:       >=1.25
+
+library str-bytestring
+  build-depends:       base, bytestring
+  exposed-modules:     Str
+  hs-source-dirs:      str-bytestring
+
+library str-string
+  build-depends:       base
+  exposed-modules:     Str
+  hs-source-dirs:      str-string
+
+library regex-types
+  build-depends:       base
+  exposed-modules:     Regex.Types
+  hs-source-dirs:      regex-types
+
+library regex-indef
+  build-depends:       base, regex-types
+  signatures:          Str
+  exposed-modules:     Regex
+  hs-source-dirs:      regex-indef
+
+library regex
+  build-depends:       regex-indef, str-string
+  reexported-modules:  Regex as Regex.String
+
+library regex-bytestring
+  build-depends:       regex-indef, str-bytestring
+  reexported-modules:  Regex as Regex.ByteString
+
+executable regex-example
+  main-is:             Main.hs
+  build-depends:       base, regex, regex-bytestring, regex-types
+  hs-source-dirs:      regex-example
