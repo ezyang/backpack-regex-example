@@ -1,4 +1,4 @@
-module Str where
+module Str.String where
 
 import Prelude hiding (null)
 import qualified Prelude as P

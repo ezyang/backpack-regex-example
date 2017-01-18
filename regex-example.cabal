@@ -3,15 +3,10 @@ version:             0.1.0.0
 build-type:          Simple
 cabal-version:       >=1.25
 
-library str-bytestring
+library str-impls
   build-depends:       base, bytestring
-  exposed-modules:     Str
-  hs-source-dirs:      str-bytestring
-
-library str-string
-  build-depends:       base
-  exposed-modules:     Str
-  hs-source-dirs:      str-string
+  exposed-modules:     Str.String, Str.ByteString
+  hs-source-dirs:      str-impls
 
 library regex-types
   build-depends:       base
@@ -24,15 +19,11 @@ library regex-indef
   exposed-modules:     Regex
   hs-source-dirs:      regex-indef
 
-library regex
-  build-depends:       regex-indef, str-string
-  reexported-modules:  Regex as Regex.String
-
-library regex-bytestring
-  build-depends:       regex-indef, str-bytestring
-  reexported-modules:  Regex as Regex.ByteString
-
 executable regex-example
   main-is:             Main.hs
-  build-depends:       base, regex, regex-bytestring, regex-types
+  build-depends:       base, regex-indef, regex-types, str-impls
+  mixins:              regex-indef (Regex as Regex.String)
+                          requires (Str as Str.String),
+                       regex-indef (Regex as Regex.ByteString)
+                          requires (Str as Str.ByteString)
   hs-source-dirs:      regex-example

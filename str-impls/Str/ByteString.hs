@@ -1,4 +1,4 @@
-module Str(module Data.ByteString.Char8, module Str) where
+module Str.ByteString(module Data.ByteString.Char8, module Str.ByteString) where
 
 import Prelude hiding (length, null, splitAt)
 import Data.ByteString.Char8
